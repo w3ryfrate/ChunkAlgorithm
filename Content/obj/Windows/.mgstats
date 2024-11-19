@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/fozze/Desktop/Projects/C#/!!! MONOGAME !!!/Minesharp/Content/DebuggingTools/minecraftRegular.spritefont","C:/Users/fozze/Desktop/Projects/C#/!!! MONOGAME !!!/Minesharp/Content/bin/Windows/DebuggingTools/minecraftRegular.xnb","FontDescriptionProcessor","SpriteFontContent",2080,37919,0,2194647
+"C:/Users/fozze/Desktop/Projects/C#/!!! MONOGAME !!!/Minesharp/Content/Textures/dirtTex.png","C:/Users/fozze/Desktop/Projects/C#/!!! MONOGAME !!!/Minesharp/Content/bin/Windows/Textures/dirtTex.xnb","TextureProcessor","Texture2DContent",27700,2097237,0,0705428
