@@ -5,6 +5,8 @@ namespace Minesharp;
 
 public class Camera
 {
+    public bool Freezed { get; set; }
+
     public Vector3 Position;
     public float Speed;
     public float FOV;
@@ -32,8 +34,11 @@ public class Camera
 
     public void Update()
     {
+        if (!Freezed)
+        {
         InputHandler();
         UpdateAxes();
+    }
     }
 
     public Matrix GetViewMatrix()

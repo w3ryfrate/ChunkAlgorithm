@@ -15,25 +15,33 @@ public static class InputManager
     public static bool DebugKeyPressed { get; private set; }
 
     private readonly static Random _random = new();
-    private static KeyboardState Input;
+    private static KeyboardState KeyInput;
 
     public static void Update(GameManager gameManager)
     {
         InputListener(gameManager);
-        Input = Keyboard.GetState();
+        KeyInput = Keyboard.GetState();
     }
 
     private static void InputListener(GameManager gameManager)
     {
-        if (Input.IsKeyDown(Keys.Escape))
-            Global.Game.Exit();
+        if (KeyInput.IsKeyDown(Keys.Escape))
+        {
+            Global.GameInstance.IsMouseVisible = true;
+            gameManager.Camera.Freezed = true;
+        }
+        else if (KeyInput.IsKeyDown(Keys.L))
+        {
+            Global.GameInstance.IsMouseVisible = false;
+            gameManager.Camera.Freezed = false;
+        }
 
-        if (Input.IsKeyUp(Keys.R))
+        if (KeyInput.IsKeyUp(Keys.R))
         {
             _inputAllowed = true;
         }
 
-        if (Input.IsKeyDown(Keys.R) && _inputAllowed)
+        if (KeyInput.IsKeyDown(Keys.R) && _inputAllowed)
         {
             int newSeed = _random.Next(0, int.MaxValue);
             Noise.NewGeneration(newSeed);
@@ -45,7 +53,7 @@ public static class InputManager
          *  FIX: Doesn't work at all for some reason, probably an issue with
          *  TryParse??
          */
-        if (Input.IsKeyDown(Keys.G) &&
+        if (KeyInput.IsKeyDown(Keys.G) &&
             !string.IsNullOrEmpty(SeedInput) &&
             int.TryParse(SeedInput, out int seedValue) &&
             seedValue <= int.MaxValue)
@@ -55,7 +63,7 @@ public static class InputManager
             SeedInput = string.Empty;
         }
 
-        DebugKeyPressed = Input.IsKeyDown(DEBUG_KEY);
+        DebugKeyPressed = KeyInput.IsKeyDown(DEBUG_KEY);
     }
 
     public static void OnTextInput(object sender, TextInputEventArgs e)

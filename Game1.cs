@@ -8,7 +8,6 @@ namespace Minesharp;
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
-
     private GameManager _gameManager;
 
     public Game1()
@@ -16,14 +15,13 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = false;
-        Window.AllowAltF4 = false;
         Window.TextInput += InputManager.OnTextInput;
     }
 
     protected override void Initialize()
     {
         Global.Content = Content;
-        Global.Game = this;
+        Global.GameInstance = this;
 
         GraphicsManager.SetScreenBounds(_graphics);
 
@@ -35,7 +33,8 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         Global.SpriteBatch = new SpriteBatch(GraphicsDevice);
-        Global.DebugFont = Content.Load<SpriteFont>("DebuggingTools/minecraftRegular");
+        Global.MCFontRegular = Content.Load<SpriteFont>("DebuggingTools\\minecraftRegular");
+        Global.MCFontBig = Content.Load<SpriteFont>("DebuggingTools\\minecraftBig");
 
         TexturesManager.LoadAllTextures();
     }

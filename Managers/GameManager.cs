@@ -8,12 +8,11 @@ public class GameManager
 {
     public Chunk ActiveChunk { get; }
     public Camera Camera { get; }
-    public Color BackgroundColor { get; } 
+    public Color BackgroundColor;
 
     public GameManager(GraphicsDevice _graphics)
     {
         ActiveChunk = new(this, _graphics);
-        BackgroundColor = new(135, 206, 255);
 
         Noise.NewGeneration(741784112);
         ActiveChunk.GenerateChunk();
@@ -29,8 +28,9 @@ public class GameManager
 
     public void Draw(GraphicsDevice graphics)
     {
+        BackgroundColor = new(0.01f, 0.25f, 0.98f);
         graphics.Clear(BackgroundColor);
-        GraphicsManager.YieldViewAndProjectionMatrices(Camera);
+        GraphicsManager.SetMatricesFromCamera(Camera);
 
         // Save the current graphics device state
         var graphicsState = new GraphicsDeviceState();
@@ -42,10 +42,12 @@ public class GameManager
 
         Global.SpriteBatch.Begin(SpriteSortMode.Immediate);
 
-        Global.SpriteBatch.DrawString(Global.DebugFont, InputManager.SeedInput, new(0, 60), Color.Black);
-        Global.SpriteBatch.DrawString(Global.DebugFont, $"Elapsed Time: {ActiveChunk.TimeToGenerateChunk}ms", new Vector2(0, 40), Color.Black);
-        Global.SpriteBatch.DrawString(Global.DebugFont, $"Seed: {Noise.ActiveGeneration.Seed}", new Vector2(0, 20), Color.Black);
-        Global.SpriteBatch.DrawString(Global.DebugFont, $"Camera Position: ({(int)Camera.Position.X}, {(int)Camera.Position.Y}, {(int)Camera.Position.Z})", Vector2.Zero, Color.Black);
+        Global.SpriteBatch.DrawString(Global.MCFontRegular, InputManager.SeedInput, new(0, 60), Color.Black);
+        if (Camera.Freezed)
+            Global.SpriteBatch.DrawString(Global.MCFontBig, "PAUSED!", new Vector2(GraphicsManager.SCREEN_WIDTH / 2 - 100, 100), Color.White); 
+        Global.SpriteBatch.DrawString(Global.MCFontRegular, $"Elapsed Time: {ActiveChunk.TimeToGenerateChunk}ms", new Vector2(0, 40), Color.Black);
+        Global.SpriteBatch.DrawString(Global.MCFontRegular, $"Seed: {Noise.ActiveGeneration.Seed}", new Vector2(0, 20), Color.Black);
+        Global.SpriteBatch.DrawString(Global.MCFontRegular, $"Camera Position: ({(int)Camera.Position.X}, {(int)Camera.Position.Y}, {(int)Camera.Position.Z})", Vector2.Zero, Color.Black);
 
         Global.SpriteBatch.End();
 

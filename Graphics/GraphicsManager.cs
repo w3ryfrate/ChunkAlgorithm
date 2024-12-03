@@ -2,8 +2,8 @@
 
 public static class GraphicsManager
 {
-    public const int SCREEN_WIDTH = 1600;
-    public const int SCREEN_HEIGHT = 900;
+    public const int SCREEN_WIDTH = 800;
+    public const int SCREEN_HEIGHT = 600;
 
     public static Matrix View { get; private set; }
     public static Matrix Projection { get; private set; }
@@ -15,7 +15,7 @@ public static class GraphicsManager
         graphics.ApplyChanges();
     }
 
-    public static void YieldViewAndProjectionMatrices(Camera camera)
+    public static void SetMatricesFromCamera(Camera camera)
     {
         View = camera.GetViewMatrix();
         Projection = camera.GetProjectionMatrix();
